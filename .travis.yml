@@ -1,1 +1,14 @@
+jdk: openjdk8
+os: linux
+dist: xenial
+env:
+  global:
+  - secure: 
+  - secure: 
+  - secure: 
 
+before_install:
+  - pip install --user awscli
+
+script: 
+    - bash build_spark.sh
