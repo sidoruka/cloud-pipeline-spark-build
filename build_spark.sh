@@ -15,6 +15,7 @@ tar -zxf openjdk.tar.gz --no-same-owner && \
 rm -f openjdk.tar.gz && \
 mv openjdk* "$JAVA_HOME" && \
 java -version && \
+rm -rf ~/maven && \
 cd ~ && \
 curl -s "https://cloud-pipeline-oss-builds.s3.amazonaws.com/tools/maven/apache-maven-3.6.1-bin.tar.gz" -o maven.tar.gz && \
 tar -zxf maven.tar.gz --no-same-owner && \
