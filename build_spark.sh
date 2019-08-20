@@ -2,6 +2,20 @@
 
 set -e
 
+### Setup JAVA 8
+echo "============="
+echo "Setting up OpenJDK 1.8.0_222"
+echo "============="
+export JAVA_HOME=~/jdk
+export PATH="$JAVA_HOME/bin:$PATH"
+rm -rf $JAVA_HOME && \
+cd ~ && \
+curl -s "https://cloud-pipeline-oss-builds.s3.amazonaws.com/tools/java/openjdk-1.8.0_222_linux-x64_bin.tar.gz" -o openjdk.tar.gz && \
+tar -zxf openjdk.tar.gz --no-same-owner && \
+rm -f openjdk.tar.gz && \
+mv openjdk* "$JAVA_HOME"
+
+
 echo "============="
 echo "Building hive"
 echo "============="
