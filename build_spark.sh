@@ -13,7 +13,8 @@ cd ~ && \
 curl -s "https://cloud-pipeline-oss-builds.s3.amazonaws.com/tools/java/openjdk-1.8.0_222_linux-x64_bin.tar.gz" -o openjdk.tar.gz && \
 tar -zxf openjdk.tar.gz --no-same-owner && \
 rm -f openjdk.tar.gz && \
-mv openjdk* "$JAVA_HOME"
+mv openjdk* "$JAVA_HOME" && \
+java -version
 echo
 
 echo "============="
