@@ -2,7 +2,6 @@
 
 ### Build hive
 ### See https://github.com/apache/spark/pull/20923 and https://github.com/JoshRosen/hive/pull/2 for the hive rebuild reasons
-apt install maven -y && \
 rm -rf ~/hive && \
 cd ~ && \
 git clone https://github.com/sidoruka/hive.git && \
