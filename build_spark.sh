@@ -1,13 +1,3 @@
-### Setup JAVA 8
-export JAVA_HOME=~/jdk
-export PATH="$JAVA_HOME/bin:$PATH"
-rm -rf $JAVA_HOME && \
-cd ~ && \
-curl -s "https://cloud-pipeline-oss-builds.s3.amazonaws.com/tools/java/openjdk-1.8.0_222_linux-x64_bin.tar.gz" -o openjdk.tar.gz && \
-tar -zxf openjdk.tar.gz --no-same-owner && \
-rm -f openjdk.tar.gz && \
-mv openjdk* "$JAVA_HOME"
-
 ### Build hive
 ### See https://github.com/apache/spark/pull/20923 and https://github.com/JoshRosen/hive/pull/2 for the hive rebuild reasons
 apt install maven -y && \
@@ -26,7 +16,7 @@ mkdir dist && \
     ~/.m2/repository/org/spark-project/hive/hive-metastore/1.2.1.spark2/hive-metastore-1.2.1.spark2.jar \
     dist/
 
-### Build Spark with hadoop 3.1.0
+### Build Spark with Hadoop 3.1.0 and "Cloud Integration" (https://spark.apache.org/docs/2.4.3/cloud-integration.html)
 rm -rf ~/spark && \
 cd ~ && \
 git clone https://github.com/apache/spark.git && \
@@ -44,4 +34,4 @@ cd ~/spark && \
 tar -cvf spark-2.4.3.tgz spark-2.4.3-bin-hadoop3.1
 
 ### Upload to the distro-S3
-aws s3 cp spark-2.4.3.tgz s3://https://cloud-pipeline-oss-builds.s3.amazonaws.com/tools/spark/spark-2.4.3.tgz
+# aws s3 cp spark-2.4.3.tgz s3://https://cloud-pipeline-oss-builds.s3.amazonaws.com/tools/spark/spark-2.4.3.tgz
