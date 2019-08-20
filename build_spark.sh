@@ -7,14 +7,20 @@ echo "============================"
 echo "Setting up OpenJDK 1.8.0_222"
 echo "============================"
 export JAVA_HOME=~/jdk
-export PATH="$JAVA_HOME/bin:$PATH"
+export PATH=$JAVA_HOME/bin:~/maven/bin:$PATH
 rm -rf $JAVA_HOME && \
 cd ~ && \
 curl -s "https://cloud-pipeline-oss-builds.s3.amazonaws.com/tools/java/openjdk-1.8.0_222_linux-x64_bin.tar.gz" -o openjdk.tar.gz && \
 tar -zxf openjdk.tar.gz --no-same-owner && \
 rm -f openjdk.tar.gz && \
 mv openjdk* "$JAVA_HOME" && \
-java -version
+java -version && \
+cd ~ && \
+curl -s "https://cloud-pipeline-oss-builds.s3.amazonaws.com/tools/maven/apache-maven-3.6.1-bin.tar.gz" -o maven.tar.gz && \
+tar -zxf maven.tar.gz --no-same-owner && \
+rm -f maven.tar.gz && \
+mv apache-maven* ~/maven && \
+mvn -version
 echo
 
 # echo "============="
