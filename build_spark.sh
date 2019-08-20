@@ -53,7 +53,7 @@ git clone https://github.com/apache/spark.git && \
 cd spark && \
 git checkout tags/v2.4.3 && \
 rm -rf dist && \
-./dev/make-distribution.sh --name cloud-pipeline-spark --tgz -Phadoop-cloud -Dhadoop.version=3.1.0 -Phive -DskipTests
+./dev/make-distribution.sh --name cloud-pipeline-spark --tgz -Phadoop-cloud -Dhadoop.version=3.1.0 -Phive -DskipTests --batch-mode
 echo
 
 
