@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ### Build hive
 ### See https://github.com/apache/spark/pull/20923 and https://github.com/JoshRosen/hive/pull/2 for the hive rebuild reasons
 apt install maven -y && \
