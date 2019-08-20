@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 ### Build hive
 ### See https://github.com/apache/spark/pull/20923 and https://github.com/JoshRosen/hive/pull/2 for the hive rebuild reasons
 rm -rf ~/hive && \
@@ -30,9 +32,9 @@ rm -rf dist && \
 \cp ~/hive/dist/* ~/spark/dist/jars/
 
 ### Pack Spark distro
-mv ~/spark/dist ~/spark/spark-2.4.3-bin-hadoop3.1
+mv ~/spark/dist ~/spark/spark-2.4.3-bin-hadoop3.1 && \
 cd ~/spark && \
-tar -cvf spark-2.4.3.tgz spark-2.4.3-bin-hadoop3.1
+tar -zcf spark-2.4.3.tgz spark-2.4.3-bin-hadoop3.1
 
 ### Upload to the distro-S3
 aws s3 cp spark-2.4.3.tgz s3://cloud-pipeline-oss-builds/tools/spark/spark-2.4.3.tgz
