@@ -35,4 +35,4 @@ cd ~/spark && \
 tar -cvf spark-2.4.3.tgz spark-2.4.3-bin-hadoop3.1
 
 ### Upload to the distro-S3
-aws s3 cp spark-2.4.3.tgz s3://https://cloud-pipeline-oss-builds.s3.amazonaws.com/tools/spark/spark-2.4.3.tgz
+aws s3 cp spark-2.4.3.tgz s3://cloud-pipeline-oss-builds/tools/spark/spark-2.4.3.tgz
