@@ -9,7 +9,7 @@ cd ~ && \
 git clone https://github.com/sidoruka/hive.git && \
 cd hive && \
 git checkout release-1.2.1-spark2 && \
-mvn clean install -Phadoop-2 -DskipTests -Psources -q && \
+mvn clean install -Phadoop-2 -DskipTests -Psources -q --batch-mode && \
 rm -rf dist && \
 mkdir dist && \
 \cp ~/.m2/repository/org/spark-project/hive/hive-beeline/1.2.1.spark2/hive-beeline-1.2.1.spark2.jar \
