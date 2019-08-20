@@ -9,7 +9,7 @@ env:
 
 before_install:
   - pip install --user awscli
-  - apt install maven -y
+  - sudo apt install maven -y
 
 script:
     - bash build_spark.sh
