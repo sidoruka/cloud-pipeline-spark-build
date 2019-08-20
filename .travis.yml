@@ -1,6 +1,6 @@
-jdk: openjdk8
 os: linux
 dist: xenial
+language: minimal
 env:
   global:
   - secure: "w7Apij7hWAfnicOvUS2P/ZjlsfM42kViuHTyTvXhjAip8puTizIRfqx1FXPePvtPAL/KxOwB7VkOsre8qcdlkD1gxfr1Zgn+pm7m3yUcFvSq5MYGuZtc8Xbn3IZ9Um0BMUflT1jkOPaYluf43wlz74Su4N7ENzk6GNQbqY96NhgcUulwtKB/mpUXqTrnRCxU5Yrwy8Cd09Vld+A9RCM5lHLV3qsLF+F4dRSIvZBOzdG/21z0A5+1yDsMm/bE0jV5J7ZaXUtQkTy5bpcYlnNHN6N2yruIwHyHpABjwaO15JMgjigX6VMrGkmTU8y/1PxjqP4ZSZC1U78jUXDlHRuRtaCjXj9E6YV4OK5IBvBSH/oVNyOrQud55ht/E0f/pKxJsf1jRanQCUQXKocIkoUf0qkPmoWQQ+GyWn0oxEmRXPbswlP/HI0DuPI1IIaAPD2GFtjE5MIAGuF8VesvsjzkeZvJqPvvCu54efCVFRfM2TJjT6blJzRjkhzSK2zIVdGatP69M6PH9GcxnaeYUP5CjIxE0bfimC5wUmAbRJtO/q9HF0sLf05dqTLXCbnyKoyaHDnW7BmaGo8sjMU/oJmt8Xpj+QhngnYWCGSAOqZ4PQHDZUujMXy7qjndDQaJy3PdLZZXQUSCd2BqKnKWETE/GIhY1PiNNe5qSvFy64KJoWU="
@@ -9,6 +9,7 @@ env:
 
 before_install:
   - pip install --user awscli
+  - apt install maven -y
 
-script: 
+script:
     - bash build_spark.sh
