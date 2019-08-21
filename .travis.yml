@@ -11,4 +11,5 @@ before_install:
   - pip install --user awscli
 
 script:
+    - ./credentials-provider/gradlew build
     - bash build_spark.sh

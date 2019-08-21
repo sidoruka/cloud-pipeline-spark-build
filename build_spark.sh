@@ -65,6 +65,8 @@ echo "Packing Spark distro"
 echo "===================="
 ### Replace hive
 \cp ~/hive/dist/* ~/spark/dist/jars/
+### Add credentials provider
+\cp $TRAVIS_BUILD_DIR/credentials-provider/build/libs/credentials-provider-0.1.jar ~/spark/dist/jars/
 # Pack tar.gz
 mv ~/spark/dist ~/spark/spark-2.4.3-bin-hadoop3.1 && \
 cd ~/spark && \
