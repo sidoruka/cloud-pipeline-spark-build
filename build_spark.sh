@@ -71,11 +71,12 @@ cd ~/spark && \
 tar -zcf spark-2.4.3.tgz spark-2.4.3-bin-hadoop3.1
 echo
 
-
-echo "======================="
-echo "Publishing Spark distro"
-echo "======================="
-### Upload to the distro-S3
-aws s3 cp spark-2.4.3.tgz s3://cloud-pipeline-oss-builds/tools/spark/spark-2.4.3.tgz
-echo
-
+if ([ "$TRAVIS_BRANCH" == "master" ] || [[ "$TRAVIS_BRANCH" == "release/"* ]]) && \
+    ([ "$TRAVIS_EVENT_TYPE" == "push" ] || [ "$TRAVIS_EVENT_TYPE" == "api" ]); then
+        echo "======================="
+        echo "Publishing Spark distro"
+        echo "======================="
+        ### Upload to the distro-S3
+        aws s3 cp spark-2.4.3.tgz s3://cloud-pipeline-oss-builds/tools/spark/spark-2.4.3.tgz
+        echo
+fi
