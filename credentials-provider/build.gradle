@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group 'com.epam.pipeline.spark'
+version '0.1'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.apache.hadoop', name: 'hadoop-aws', version: '3.1.2'
+    compile group: 'org.apache.hadoop', name: 'hadoop-common', version: '3.1.2'
+}
+
+wrapper {
+    gradleVersion = '5.6'
+}
