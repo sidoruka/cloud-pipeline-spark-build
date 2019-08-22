@@ -28,7 +28,6 @@ echo
 echo "============="
 echo "Cloud Pipeline Credentials Provider"
 echo "============="
-ls -la
 cd $TRAVIS_BUILD_DIR/credentials-provider && \
 ./gradlew jar && \
 mkdir -p ~/credentials-provider/dist && \
