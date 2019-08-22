@@ -27,7 +27,7 @@ public class CPCredentialsProvider implements AWSCredentialsProvider {
 
     public CPCredentialsProvider(final URI uri,
                                  final Configuration conf) {
-        LOGGER.error("Initializing Cloud Pipeline credentials provider.");
+        LOGGER.info("Initializing Cloud Pipeline credentials provider.");
         final String bucketName = Optional.ofNullable(uri)
                 .map(URI::getHost)
                 .orElse(StringUtils.EMPTY);
@@ -35,25 +35,25 @@ public class CPCredentialsProvider implements AWSCredentialsProvider {
             throw new IllegalArgumentException("Bucket name is not specified.");
         }
         this.cloudPipeline = new CloudPipelineBuilder().build(conf);
-        LOGGER.error("Loading bucket with name {} from Cloud Pipeline.", bucketName);
+        LOGGER.info("Loading bucket with name {} from Cloud Pipeline.", bucketName);
         this.bucket = this.cloudPipeline.load(bucketName);
-        LOGGER.error("Successfully loaded bucket with ID {}.", this.bucket.getId());
+        LOGGER.info("Successfully loaded bucket with ID {}.", this.bucket.getId());
     }
 
     @Override
     public AWSCredentials getCredentials() {
-        LOGGER.error("Requesting credentials from Cloud Pipeline.");
+        LOGGER.trace("Requesting credentials from Cloud Pipeline.");
         if (credentials == null || credentialsExpired()) {
-            LOGGER.error("Credentials are missing or expired. Refreshing.");
+            LOGGER.info("Credentials are missing or expired. Refreshing.");
             refresh();
         }
-        LOGGER.error("Returning credentials.");
+        LOGGER.trace("Returning credentials.");
         return credentials;
     }
 
     @Override
     public void refresh() {
-        LOGGER.error("Requesting new credentials from Cloud Pipeline.");
+        LOGGER.info("Requesting new credentials from Cloud Pipeline.");
         credentials = cloudPipeline.getCredentials(bucket);
     }
 
