@@ -28,7 +28,8 @@ echo
 echo "============="
 echo "Cloud Pipeline Credentials Provider"
 echo "============="
-cd credentials-provider/ && \
+ls -la
+cd credentials-provider && \
 ./gradlew jar && \
 mkdir -p ~/credentials-provider/dist && \
 \cp build/libs/credentials-provider-*.jar ~/credentials-provider/dist/
