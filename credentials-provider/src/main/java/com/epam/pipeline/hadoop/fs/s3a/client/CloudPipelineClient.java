@@ -46,25 +46,17 @@ public class CloudPipelineClient {
             final URI uri = new URIBuilder(host + "/datastorage/find")
                     .addParameter("id", name)
                     .build();
-            final HttpUriRequest request = RequestBuilder.get(
-                    uri)
-                    .addHeader("Content-Type", "application/json")
-                    .addHeader("Authorization", "Bearer " + token)
-                    .build();
+            final HttpUriRequest request = RequestBuilder.get(uri).build();
             return executeRequest(request, new TypeReference<Response<DataStorage>>() {});
         } catch (URISyntaxException e) {
             throw new IllegalArgumentException(e);
         }
     }
 
-    public TemporaryCredentials getCredentials(final DataStorage storage) {
+    public TemporaryCredentials getCredentials(final CredentialsRequest credentialsRequest) {
         try {
-            final CredentialsRequest credentialsRequest = new CredentialsRequest(storage.getId(), true);
-            final HttpUriRequest request = RequestBuilder.post(
-                    new URIBuilder(host + "/datastorage/tempCredentials/")
-                    .build())
-                    .addHeader("Content-Type", "application/json")
-                    .addHeader("Authorization", "Bearer " + token)
+             final HttpUriRequest request = RequestBuilder.post(
+                    new URIBuilder(host + "/datastorage/tempCredentials/").build())
                     .setEntity(new StringEntity(mapper.writeValueAsString(
                             Collections.singletonList(credentialsRequest))))
                     .build();
@@ -74,8 +66,11 @@ public class CloudPipelineClient {
         }
     }
 
+
     private <T> T executeRequest(final HttpUriRequest request, final TypeReference<Response<T>> type) {
         try {
+            request.addHeader("Content-Type", "application/json");
+            request.addHeader("Authorization", "Bearer " + token);
             final HttpResponse response = this.client.execute(request);
             if (response.getStatusLine().getStatusCode() != 200) {
                 throw new IllegalArgumentException("Cloud Pipeline responded with unexpected status: " +
