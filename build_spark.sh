@@ -26,6 +26,16 @@ echo
 
 
 echo "============="
+echo "Cloud Pipeline Credentials Provider"
+echo "============="
+cd credentials-provider/ && \
+./gradlew jar && \
+mkdir -p ~/credentials-provider/dist && \
+\cp build/libs/credentials-provider-*.jar ~/credentials-provider/dist/
+echo
+
+
+echo "============="
 echo "Building hive"
 echo "============="
 ### See https://github.com/apache/spark/pull/20923 and https://github.com/JoshRosen/hive/pull/2 for the hive rebuild reasons
@@ -66,7 +76,7 @@ echo "===================="
 ### Replace hive
 \cp ~/hive/dist/* ~/spark/dist/jars/
 ### Add credentials provider
-\cp $TRAVIS_BUILD_DIR/credentials-provider/build/libs/credentials-provider-0.1.jar ~/spark/dist/jars/
+\cp ~/credentials-provider/dist/* ~/spark/dist/jars/
 # Pack tar.gz
 mv ~/spark/dist ~/spark/spark-2.4.3-bin-hadoop3.1 && \
 cd ~/spark && \
