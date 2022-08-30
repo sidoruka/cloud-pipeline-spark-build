@@ -12,8 +12,8 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.apache.hadoop', name: 'hadoop-aws', version: '3.1.2'
-    compile group: 'org.apache.hadoop', name: 'hadoop-common', version: '3.1.2'
+    compile group: 'org.apache.hadoop', name: 'hadoop-aws', version: '3.2.2'
+    compile group: 'org.apache.hadoop', name: 'hadoop-common', version: '3.2.2'
 }
 
 wrapper {
