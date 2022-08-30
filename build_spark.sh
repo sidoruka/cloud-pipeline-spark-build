@@ -40,27 +40,6 @@ mkdir -p ~/credentials-provider/dist && \
 echo
 
 
-echo "============="
-echo "Building hive"
-echo "============="
-### See https://github.com/apache/spark/pull/20923 and https://github.com/JoshRosen/hive/pull/2 for the hive rebuild reasons
-rm -rf ~/hive && \
-cd ~ && \
-git clone https://github.com/sidoruka/hive.git && \
-cd hive && \
-git checkout release-1.2.1-spark2 && \
-mvn clean install -Phadoop-2 -DskipTests -Psources -q --batch-mode && \
-rm -rf dist && \
-mkdir dist && \
-\cp ~/.m2/repository/org/spark-project/hive/hive-beeline/1.2.1.spark2/hive-beeline-1.2.1.spark2.jar \
-    ~/.m2/repository/org/spark-project/hive/hive-cli/1.2.1.spark2/hive-cli-1.2.1.spark2.jar \
-    ~/.m2/repository/org/spark-project/hive/hive-exec/1.2.1.spark2/hive-exec-1.2.1.spark2.jar \
-    ~/.m2/repository/org/spark-project/hive/hive-jdbc/1.2.1.spark2/hive-jdbc-1.2.1.spark2.jar \
-    ~/.m2/repository/org/spark-project/hive/hive-metastore/1.2.1.spark2/hive-metastore-1.2.1.spark2.jar \
-    dist/
-echo
-
-
 echo "=============="
 echo "Building Spark"
 echo "=============="
@@ -76,7 +55,7 @@ rm -rf dist && \
 ./dev/make-distribution.sh  --name cloud-pipeline-spark \
                             --tgz \
                             -Phadoop-cloud \
-                            -Dhadoop.version=3.1.0 \
+                            -Dhadoop.version=3.2.2 \
                             -Phive \
                             -Phive-thriftserver \
                             -DskipTests \
@@ -92,9 +71,9 @@ echo "===================="
 ### Add credentials provider
 \cp ~/credentials-provider/dist/* ~/spark/dist/jars/
 # Pack tar.gz
-mv ~/spark/dist ~/spark/spark-3.2.1-bin-hadoop3.1 && \
+mv ~/spark/dist ~/spark/spark-3.2.1-bin-hadoop3.2 && \
 cd ~/spark && \
-tar -zcf spark-3.2.1.tgz spark-3.2.1-bin-hadoop3.1
+tar -zcf spark-3.2.1.tgz spark-3.2.1-bin-hadoop3.2
 echo
 
 echo "======================="
