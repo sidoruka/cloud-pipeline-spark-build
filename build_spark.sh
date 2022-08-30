@@ -66,12 +66,12 @@ echo "Building Spark"
 echo "=============="
 ### If this is not set, Maven will crash with StackOverflow exception
 export MAVEN_OPTS="-Xss64m -Xmx2g -XX:ReservedCodeCacheSize=1g"
-### Build Spark with Hadoop 3.1.0 and "Cloud Integration" (https://spark.apache.org/docs/2.4.3/cloud-integration.html)
+### Build Spark with Hadoop 3.1.0 and "Cloud Integration" (https://spark.apache.org/docs/3.2.1/cloud-integration.html)
 rm -rf ~/spark && \
 cd ~ && \
 git clone https://github.com/apache/spark.git && \
 cd spark && \
-git checkout tags/v2.4.3 && \
+git checkout tags/v3.2.1 && \
 rm -rf dist && \
 ./dev/make-distribution.sh  --name cloud-pipeline-spark \
                             --tgz \
@@ -92,14 +92,14 @@ echo "===================="
 ### Add credentials provider
 \cp ~/credentials-provider/dist/* ~/spark/dist/jars/
 # Pack tar.gz
-mv ~/spark/dist ~/spark/spark-2.4.3-bin-hadoop3.1 && \
+mv ~/spark/dist ~/spark/spark-3.2.1-bin-hadoop3.1 && \
 cd ~/spark && \
-tar -zcf spark-2.4.3.tgz spark-2.4.3-bin-hadoop3.1
+tar -zcf spark-3.2.1.tgz spark-3.2.1-bin-hadoop3.1
 echo
 
 echo "======================="
 echo "Publishing Spark distro"
 echo "======================="
 ### Upload to the distro-S3
-aws s3 cp spark-2.4.3.tgz s3://cloud-pipeline-oss-builds/tools/spark/spark-2.4.3.tgz
+aws s3 cp spark-3.2.1.tgz s3://cloud-pipeline-oss-builds/tools/spark/spark-3.2.1.tgz
 echo
