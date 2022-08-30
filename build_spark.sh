@@ -2,6 +2,11 @@
 
 set -e
 
+### Setup prerequisites
+apt install git curl -y
+pip install awscli
+
+
 ### Setup JAVA 8
 echo "============================"
 echo "Setting up OpenJDK 1.8.0_222"
@@ -59,6 +64,8 @@ echo
 echo "=============="
 echo "Building Spark"
 echo "=============="
+### If this is not set, Maven will crash with StackOverflow exception
+export MAVEN_OPTS="-Xss64m -Xmx2g -XX:ReservedCodeCacheSize=1g"
 ### Build Spark with Hadoop 3.1.0 and "Cloud Integration" (https://spark.apache.org/docs/2.4.3/cloud-integration.html)
 rm -rf ~/spark && \
 cd ~ && \
@@ -66,7 +73,14 @@ git clone https://github.com/apache/spark.git && \
 cd spark && \
 git checkout tags/v2.4.3 && \
 rm -rf dist && \
-./dev/make-distribution.sh --name cloud-pipeline-spark --tgz -Phadoop-cloud -Dhadoop.version=3.1.0 -Phive -DskipTests --batch-mode
+./dev/make-distribution.sh  --name cloud-pipeline-spark \
+                            --tgz \
+                            -Phadoop-cloud \
+                            -Dhadoop.version=3.1.0 \
+                            -Phive \
+                            -Phive-thriftserver \
+                            -DskipTests \
+                            --batch-mode
 echo
 
 
@@ -83,12 +97,9 @@ cd ~/spark && \
 tar -zcf spark-2.4.3.tgz spark-2.4.3-bin-hadoop3.1
 echo
 
-if ([ "$TRAVIS_BRANCH" == "master" ] || [[ "$TRAVIS_BRANCH" == "release/"* ]]) && \
-    ([ "$TRAVIS_EVENT_TYPE" == "push" ] || [ "$TRAVIS_EVENT_TYPE" == "api" ]); then
-        echo "======================="
-        echo "Publishing Spark distro"
-        echo "======================="
-        ### Upload to the distro-S3
-        aws s3 cp spark-2.4.3.tgz s3://cloud-pipeline-oss-builds/tools/spark/spark-2.4.3.tgz
-        echo
-fi
+echo "======================="
+echo "Publishing Spark distro"
+echo "======================="
+### Upload to the distro-S3
+aws s3 cp spark-2.4.3.tgz s3://cloud-pipeline-oss-builds/tools/spark/spark-2.4.3.tgz
+echo
