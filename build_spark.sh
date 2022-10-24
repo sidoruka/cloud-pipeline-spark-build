@@ -33,7 +33,8 @@ echo
 echo "============="
 echo "Cloud Pipeline Credentials Provider"
 echo "============="
-cd $TRAVIS_BUILD_DIR/credentials-provider && \
+### Note: use `-Dhttps.proxyHost= -Dhttps.proxyPort=` if building with a proxy
+cd credentials-provider && \
 ./gradlew jar && \
 mkdir -p ~/credentials-provider/dist && \
 \cp build/libs/credentials-provider-*.jar ~/credentials-provider/dist/
@@ -54,6 +55,7 @@ git checkout tags/v3.2.1 && \
 rm -rf dist && \
 ./dev/make-distribution.sh  --name cloud-pipeline-spark \
                             --tgz \
+                            --r \
                             -Phadoop-cloud \
                             -Dhadoop.version=3.2.2 \
                             -Phive \
